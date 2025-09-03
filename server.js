@@ -12,6 +12,9 @@ app.use(express.json());
 //ROUTES
 app.use("/api/users", userRoute);
 app.get("/", (req, res) => {
+  res.status(200).json( "successfully deployed...." );
+});
+app.get("/", (req, res) => {
   res.status(200).json({ message: "API is running...." });
 });
 
