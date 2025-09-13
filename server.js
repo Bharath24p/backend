@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
-const userRoute = require("./routes/user");
+const userRoute = require("./src/api/user/routes/user");
+const productRoute = require("./src/api/products/routes/products");
 const { connect } = require("http2");
 const connectDB = require("./config/dbConnection");
 
@@ -11,6 +12,8 @@ app.use(express.json());
 
 //ROUTES
 app.use("/api/users", userRoute);
+app.use("/api/products", productRoute);
+// app.use("/api/carts", require("./src/api/cart/routes/cart"));
 app.get("/", (req, res) => {
   res.status(200).json( "successfully deployed...." );
 });

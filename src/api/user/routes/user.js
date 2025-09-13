@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const User = require("../models/User");
+const User = require("../model/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const validateToken = require("../middleware/validateToken");
+const validateToken = require("../../../../middleware/validateToken");
 //REGISTER
 router.post("/register", async (req, res) => {
   try {
@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
 });
 
 //LOGIN
-router.post("/login", async (req, res) => {
+router.get("/login", async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
     if (!user) {
@@ -54,6 +54,16 @@ router.get("/current", validateToken, async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+}
+);
+router.delete("/:id", async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);    
+    res.status(200).json("User has been deleted...");
+  } catch (err) {
+    res.status(500).json(err);
+  } 
 });
+
 
 module.exports = router;
